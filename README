@@ -33,6 +33,11 @@ README					this file
 3. launch clustering.R to cluster your twitter friends
    R> source("clustering.R")
 
++------------+
+| References |
++------------+
+1. http://www.slideshare.net/abicky/twitterr
+2. http://www.slideshare.net/abicky/intro-6027373
 
 
 ----- in Japanese -------------------------------------------------------
@@ -69,3 +74,9 @@ README					このファイル
 
 3. フォローさんをクラスタリングするには clustering.R を実行
    R> source("clustering.R")
+
++------+
+| 参考 |
++------+
+1. http://www.slideshare.net/abicky/twitterr
+2. http://www.slideshare.net/abicky/intro-6027373
