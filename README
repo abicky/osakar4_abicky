@@ -13,16 +13,16 @@ unix/ 					files for Mac or Linux
   twilog2.R		Free		plot graphs like twilog stats using functions
   twilogFuncs.R		Free		functions for twilog2.R
   clustering.R		Free		cluster your twitter friends
-  twitter.R		Free		functions to get data via OAuth authentication
+  twitter.R		MIT		functions to get data via OAuth authentication
   json.R		LGPL		part of twitteR package
+  OAuth.R		MIT		cf. https://gist.github.com/586468
 README					this file
 
 +-------+
 | Usage |
 +-------+
-0. install the dependenceis "twitteR", "ggplot2", "scrapeR", ("png", "pixmap", "ReadImages")
-   , download and install "RMeCab" from http://rmecab.jp/wiki/index.php?RMeCab, 
-   and download "OAuth.R" from https://gist.github.com/586468
+0. install the dependenceis "twitteR", "ggplot2", "scrapeR", ("png", "pixmap", "ReadImages"),
+   download and install "RMeCab" from http://rmecab.jp/wiki/index.php?RMeCab
 
 1. edit init.R
    change values of screenName, auser, key.consumer, and secret.consumer
@@ -40,24 +40,26 @@ README					this file
 +--------------+
 | 同梱ファイル |
 +--------------+
-ファイル名	ライセンス	説明
+ファイル名		ライセンス	説明
 
-init.R		フリー		Twitterアカウントやアクセストークンなどが記述されてある初期化ファイル
-				これらの値を書き換えてください．
-twilog1.R	フリー		関数なしでtwilog statsのようなグラフをプロット
-twilog2.R	フリー		関数を使ってtwilog statsのようなグラフをプロット
-twilogFuncs.R	フリー		twilog2.R用の関数
-clustering.R	フリー		フォローさんをクラスタリング
-twitter.R	フリー		OAuth認証経由でデータを取得するための関数
-json.R		LGPL		twitteRパッケージの一部
-README		フリー		このファイル
+win/					Windows 用ファイル
+unix/					Unix 用ファイル
+  init.R		フリー		Twitterアカウントやアクセストークンなどが記述されてある初期化ファイル
+					これらの値を書き換えてください．
+  twilog1.R		フリー		関数なしでtwilog statsのようなグラフをプロット
+  twilog2.R		フリー		関数を使ってtwilog statsのようなグラフをプロット
+  twilogFuncs.R		フリー		twilog2.R用の関数
+  clustering.R		フリー		フォローさんをクラスタリング
+  twitter.R		MIT		OAuth認証経由でデータを取得するための関数
+  json.R		LGPL		twitteRパッケージの一部
+  OAuth.R		MIT		cf. https://gist.github.com/586468
+README					このファイル
 
 +--------+
 | 使い方 |
 +--------+
 0. 依存パッケージ "twitteR", "ggplot2", ("png", "pixmap", "ReadImages") をインストール
-   "RMeCab" を http://rmecab.jp/wiki/index.php?RMeCab からダウンロードしてインストール,
-   "OAuth.R" を https://gist.github.com/586468 からダウンロード
+   "RMeCab" を http://rmecab.jp/wiki/index.php?RMeCab からダウンロードしてインストール
 
 1. init.R を編集
    screenName, auser, key.consumer, secret.consumer の値を変更

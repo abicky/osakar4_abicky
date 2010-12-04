@@ -1,6 +1,32 @@
+#---------------------------------------------------------------------------------
+# twitter.R
+#
+# The MIT License
+#
+# Copyright (c) 2010 Takeshi Arabiki (@a_bicky)
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#---------------------------------------------------------------------------------
 source("OAuth.R")
 library(RJSONIO)
 
+# make parameters for OAuth
 makeParams <- function(uri, method, argv, auser) {
     nonce <- generateRandomString()
     timestamp <- as.integer(Sys.time())
@@ -24,6 +50,13 @@ makeParams <- function(uri, method, argv, auser) {
     rbind(params, data.frame(key="oauth_signature", value=signature))
 }
 
+
+# request to API and get the response
+# twitterRequest(apiURI, method, argv, verbose)
+# apiURI:   URI of Twitter API
+# method:   "GET" or "POST"
+# argv:     parameters for API  e.g. c(page = 2, count = 200)
+# varbose:  whether to output HTTP response
 twitterRequest <- function(uri, method = "GET", argv = c(), verbose = FALSE, auser) {
     if (missing(auser)) {
         auser <- evalq(auser, envir = globalenv())
@@ -50,8 +83,14 @@ twitterRequest <- function(uri, method = "GET", argv = c(), verbose = FALSE, aus
 }
 
 
-
-tryRequest <- function(uri, method, argv, verbose, ntry = 3) {
+# request to API and get the response. If cannot get a desired response, try again.
+# tryRequest(apiURI, method, argv, verbose, ntry)
+# apiURI:   URI of Twitter API
+# method:   "GET" or "POST"
+# argv:     parameters for API  e.g. c(page = 2, count = 200)
+# varbose:  whether to output HTTP response
+# ntry:     upper limit for number of trials
+tryRequest <- function(uri, method = "GET", argv = c(), verbose = FALSE, ntry = 3) {
     i <- 0
     while (i <= ntry) {
         i <- i + 1
@@ -68,7 +107,12 @@ tryRequest <- function(uri, method, argv, verbose, ntry = 3) {
 
 
 
-
+# get user information
+# getUsers(user = NULL, argv = c(), verbose = FALSE)
+# users:    IDs (numeric vector) or screen names (string vector) whose information you want to get.
+#           If the value is NULL, get the authenticated user's information.
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getUsers <- function(users = NULL, argv = c(), verbose = FALSE) {
     if (!is.null(users) || any(names(argv) %in% c("user_id", "screen_name"))) {
         uri <- "http://api.twitter.com/1/users/lookup.json"
@@ -122,6 +166,14 @@ getUsers <- function(users = NULL, argv = c(), verbose = FALSE) {
 }
 
 
+
+# get user's tweets 
+# getTweets(user = NULL, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose tweets you want to get.
+#           If the value is NULL, get the authenticated user's tweets.
+# n:        number of tweets you want to get
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getTweets <- function(user = NULL, n = 20, argv = c(), verbose = FALSE) {
     uri <- "http://api.twitter.com/1/statuses/user_timeline.json"
     
@@ -180,22 +232,54 @@ getTweets <- function(user = NULL, n = 20, argv = c(), verbose = FALSE) {
 }
 
 
+
+# get frineds' IDs
+# getFriendsIDs(user = NULL, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose friends' IDs you want to get.
+#           If the value is NULL, get the friends' IDs of the authenticated user.
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getFriendsIDs <- function(user = NULL, argv = c(), verbose = FALSE) {
     getFFIDs("friends", user, argv, verbose)
 }
 
+# get followers' IDs
+# getFollowersIDs(user = NULL, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose followers' IDs you want to get.
+#           If the value is NULL, get the followers' IDs of the authenticated user.
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getFollowersIDs <- function(user = NULL, argv = c(), verbose = FALSE) {
     getFFIDs("followers", user, argv, verbose)
 }
 
+# get frineds' informations
+# getFriends(user = NULL, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose friends' informations you want to get.
+#           If the value is NULL, get the friends' informations of the authenticated user.
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getFriends <- function(user = NULL, argv = c(), verbose = FALSE) {
     getFF("friends", user, argv, verbose)
 }
 
+# get followers' informations
+# getFollowersIDs(user = NULL, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose followers' informations you want to get.
+#           If the value is NULL, get the followers' informations of the authenticated user.
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getFollowers <- function(user = NULL, argv = c(), verbose = FALSE) {
     getFF("friends", user, argv, verbose)
 }
 
+# get user's favorites
+# getFavs(user = NULL, n = 20, n = 20, argv = c(), verbose = FALSE)
+# user:     ID (numeric) or screen name (string) whose favorites you want to get.
+#           If the value is NULL, get the authenticated user's tweets.
+# n:        number of favorites you want to get
+# argv:     other parameters for API
+# varbose:  whether to output HTTP response
 getFavs <- function(user = NULL, n = 20, argv = c(), verbose = FALSE) {
     n <- checkUInt(n)
     limit <- n
