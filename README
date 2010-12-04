@@ -1,0 +1,69 @@
+Codes for Osaka.R #4 presentation by a_bicky
+
++----------------+
+| Included files |
++----------------+
+File name		License		Description
+
+win/ 					files for Windows
+unix/ 					files for Mac or Linux
+  init.R		Free		Initialization file in which twitter account, access token, and so on are written.
+					You have to change these values.
+  twilog1.R		Free		plot graphs like twilog stats without functions
+  twilog2.R		Free		plot graphs like twilog stats using functions
+  twilogFuncs.R		Free		functions for twilog2.R
+  clustering.R		Free		cluster your twitter friends
+  twitter.R		Free		functions to get data via OAuth authentication
+  json.R		LGPL		part of twitteR package
+README					this file
+
++-------+
+| Usage |
++-------+
+0. install the dependenceis "twitteR", "ggplot2", "scrapeR", ("png", "pixmap", "ReadImages")
+   , download and install "RMeCab" from http://rmecab.jp/wiki/index.php?RMeCab, 
+   and download "OAuth.R" from https://gist.github.com/586468
+
+1. edit init.R
+   change values of screenName, auser, key.consumer, and secret.consumer
+
+2. launch twilog1.R or twilog2.R to plot graphs like twilog stats
+   R> source("twilog1.R")
+
+3. launch clustering.R to cluster your twitter friends
+   R> source("clustering.R")
+
+
+
+----- in Japanese -------------------------------------------------------
+
++--------------+
+| 同梱ファイル |
++--------------+
+ファイル名	ライセンス	説明
+
+init.R		フリー		Twitterアカウントやアクセストークンなどが記述されてある初期化ファイル
+				これらの値を書き換えてください．
+twilog1.R	フリー		関数なしでtwilog statsのようなグラフをプロット
+twilog2.R	フリー		関数を使ってtwilog statsのようなグラフをプロット
+twilogFuncs.R	フリー		twilog2.R用の関数
+clustering.R	フリー		フォローさんをクラスタリング
+twitter.R	フリー		OAuth認証経由でデータを取得するための関数
+json.R		LGPL		twitteRパッケージの一部
+README		フリー		このファイル
+
++--------+
+| 使い方 |
++--------+
+0. 依存パッケージ "twitteR", "ggplot2", ("png", "pixmap", "ReadImages") をインストール
+   "RMeCab" を http://rmecab.jp/wiki/index.php?RMeCab からダウンロードしてインストール,
+   "OAuth.R" を https://gist.github.com/586468 からダウンロード
+
+1. init.R を編集
+   screenName, auser, key.consumer, secret.consumer の値を変更
+
+2. twilog stats のようなグラフをプロットするには  twilog1.R か twilog2.R を実行
+   R> source("twilog1.R")
+
+3. フォローさんをクラスタリングするには clustering.R を実行
+   R> source("clustering.R")
